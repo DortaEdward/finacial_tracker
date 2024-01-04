@@ -24,7 +24,12 @@ func CreateServer(addr string, server *fiber.App) *Server{
 	}
 }
 
+func HandleIndexRoute(c *fiber.Ctx) error {
+	return c.Render("index",fiber.Map{})
+}
+
 func (s *Server) Run(){
+	s.server.Get("/",HandleIndexRoute)
 	routes := s.server.Group("/api")
 	routes.Get("/",HandleHealthCheck)
 

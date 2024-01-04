@@ -5,6 +5,10 @@ import (
 
 	"github.com/dortaedward/financeTracker/types"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/helmet"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/template/django/v3"
 )
 
 const(
@@ -13,7 +17,13 @@ const(
 
 func main(){
 
-	app := fiber.New()
+	engine := django.New("./views", ".html")
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	})
+	app.Use(cors.New())
+	app.Use(helmet.New())
+	app.Use(logger.New())
 
 	api := types.CreateServer(addr,app)
 	api.Run()
