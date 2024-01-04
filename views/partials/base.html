@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Financial Tracker</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css"></link>
+  </head>
+  <body class="min-w-screen min-h-screen flex flex-col bg-slate-800">
+    {% include "partials/header.html" %}
+    <main class="flex flex-col min-h-screen">
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>

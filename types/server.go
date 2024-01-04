@@ -13,7 +13,9 @@ func HandleHealthCheck(c *fiber.Ctx) error {
 		"status": fiber.StatusOK,
 	}
 	c.Status(fiber.StatusOK)
-	c.JSON(data)
+  err := c.JSON(data); if err != nil {
+    return err
+  }
 	return nil
 }
 
@@ -25,7 +27,7 @@ func CreateServer(addr string, server *fiber.App) *Server{
 }
 
 func HandleIndexRoute(c *fiber.Ctx) error {
-	return c.Render("index",fiber.Map{})
+	return c.Render("marketing/index",fiber.Map{})
 }
 
 func (s *Server) Run(){

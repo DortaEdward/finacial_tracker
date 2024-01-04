@@ -1,0 +1,14 @@
+
+{% extends "partials/base.html" %}
+{% block content %}
+  <div class="container mx-auto my-20 bg-red-100">
+    <div class="flex flex-col items-center jusify-center gap-4 text-white">
+      <h1 class="text-5xl max-w-2xl font-bold capitalize text-center">A finance tracker for the everyday user</h1>
+      <p class="text-2xl text-gray-400">Tracking your personal finances has never been this easy</p>
+    </div>
+    <div class="flex gap-4 items-center justify-center">
+      <a href="/signin" class="py-3 px-3 bg-teal-600 text-center font-bold text-white rounded">Get Started</a>
+      <a href="/faq" class="text-white font-light underline">Learn More</a>
+    </div>
+  </div>
+{% endblock %}
