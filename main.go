@@ -18,12 +18,16 @@ const(
 func main(){
 
 	engine := django.New("./views", ".html")
+	engine.Reload(true)
 	app := fiber.New(fiber.Config{
 		Views: engine,
+		PassLocalsToViews: true,
 	})
 	app.Use(cors.New())
 	app.Use(helmet.New())
 	app.Use(logger.New())
+
+	app.Static("/static","./static/")
 
 	api := types.CreateServer(addr,app)
 	api.Run()
