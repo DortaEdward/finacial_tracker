@@ -1,10 +1,15 @@
 package types
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"database/sql"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 type Server struct{
 	addr string
 	server *fiber.App
+  db *sql.DB
 }
 
 func HandleHealthCheck(c *fiber.Ctx) error {
@@ -19,15 +24,16 @@ func HandleHealthCheck(c *fiber.Ctx) error {
 	return nil
 }
 
-func CreateServer(addr string, server *fiber.App) *Server{
+func CreateServer(addr string, server *fiber.App, db *sql.DB) *Server{
 	return &Server{
 		addr: addr,
 		server: server,
+    db: db,
 	}
 }
 
 func HandleIndexRoute(c *fiber.Ctx) error {
-	return c.Render("marketing/index",fiber.Map{})
+  return nil
 }
 
 func (s *Server) Run(){
