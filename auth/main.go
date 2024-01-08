@@ -1,8 +1,6 @@
 package auth
 
 import (
-	"database/sql"
-
 	"github.com/dortaedward/financeTracker/types"
 )
 
@@ -19,7 +17,8 @@ func GenerateToken(){
  */
 }
 
-func AuthenticateUser(user_creds types.SigninRequest, db *sql.DB){
+func AuthenticateUser(user_creds types.SigninRequest){
+	
   /*
   TODO
     - find user in db

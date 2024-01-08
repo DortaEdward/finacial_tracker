@@ -1,6 +1,6 @@
 package types
 
 type SigninRequest struct{
-  email string `json:"email" bind:"required"`
-  password string `json:"password" bind:"required"`
+  Email string `json:"email" bind:"required"`
+  Password string `json:"password" bind:"required"`
 }

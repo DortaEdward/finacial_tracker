@@ -1,9 +1,10 @@
 package api
 
 import (
-	"database/sql"
+	"fmt"
 
 	//"github.com/dortaedward/financeTracker/auth"
+	"github.com/dortaedward/financeTracker/auth"
 	"github.com/dortaedward/financeTracker/types"
 	"github.com/gofiber/fiber/v2"
 )
@@ -11,7 +12,6 @@ import (
 type Server struct{
 	addr string
 	server *fiber.App
-  store *sql.DB
 }
 
 func HandleHealthCheck(c *fiber.Ctx) error {
@@ -26,7 +26,7 @@ func HandleHealthCheck(c *fiber.Ctx) error {
 	return nil
 }
 
-func CreateServer(addr string, server *fiber.App, db *sql.DB) *Server{
+func CreateServer(addr string, server *fiber.App) *Server{
 	return &Server{
 		addr: addr,
 		server: server,
@@ -39,11 +39,12 @@ func HandleIndexRoute(c *fiber.Ctx) error {
 
 func HandleSignIn(c *fiber.Ctx) error{
   var signin_request types.SigninRequest
-  err := c.BodyParser(signin_request); if err != nil{
+  if err := c.BodyParser(&signin_request); err != nil{
     c.Status(fiber.StatusBadRequest)
     return err
   }
-//  auth.AuthenticateUser()  
+  fmt.Println(signin_request.Email, signin_request.Password)
+  auth.AuthenticateUser(signin_request)  
   return nil
 }
 
@@ -51,5 +52,5 @@ func (s *Server) Run(){
 	s.server.Get("/",HandleIndexRoute)
 	routes := s.server.Group("/api")
 	routes.Get("/",HandleHealthCheck)
-  routes.Post("/signin",HandleSignIn)
+  	routes.Post("/signin",HandleSignIn)
 }
